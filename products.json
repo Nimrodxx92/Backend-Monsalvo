@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Camiseta Nike",
+    "description": "100% algodón",
+    "price": 12000,
+    "thumbnail": "imagen.jpg",
+    "code": "lpw874",
+    "stock": 10
+  },
+  {
+    "id": 2,
+    "title": "Pantalón Adidas",
+    "description": "Rojo con tiras negras",
+    "price": 55000,
+    "thumbnail": "otra_imagen.jpg",
+    "code": "pcv544",
+    "stock": 17
+  }
+]
