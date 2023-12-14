@@ -1,10 +1,10 @@
 const express = require("express");
-const productsController = require("../controllers/products.controller");
-const cartController = require("../controllers/cart.controller");
+const productsController = require("../controllers/products.controllers");
+const cartsController = require("../controllers/cart.controllers");
 
 const router = express.Router();
 
 router.use("/products", productsController);
-router.use("/cart", cartController);
+router.use("/carts", cartsController);
 
 module.exports = router;

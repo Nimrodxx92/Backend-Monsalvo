@@ -1,24 +1,68 @@
-const express = require("express");
-const router = express.Router();
-const productManager = require("../ProductManager");
+const { Router } = require("express");
+const ProductManager = require("../ProductManager");
+const { convertToNumber } = require("../middlewares/conver.numers.middlewares");
 
-router.get("/products", async (req, res) => {
-  try {
-    const limit = req.query.limit;
-    const products = await productManager.getProducts(limit);
-    res.json({ products });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+const router = Router();
+const productManager = new ProductManager("./src/productos.json");
+
+router.get("/", async (req, res) => {
+  const { limit } = req.query;
+
+  const products = await productManager.getProducts();
+
+  if (limit) {
+    return res.json({ products: products.slice(0, limit) });
+  }
+
+  res.json({ products: products });
+});
+
+router.get("/:pid", convertToNumber, async (req, res) => {
+  const { pid } = req.params;
+
+  const productId = await productManager.getProductsById(pid);
+
+  if (productId) {
+    res.json({ products: productId });
+  } else {
+    res.status(404).json({ Error: "Producto no Encontrado" });
   }
 });
 
-router.get("/products/:pid", async (req, res) => {
-  try {
-    const productId = parseInt(req.params.pid);
-    const product = await productManager.getProductById(productId);
-    res.json({ product });
-  } catch (error) {
-    res.status(404).json({ error: error.message });
+router.post("/", async (req, res) => {
+  const product = req.body;
+
+  const productToAdd = await productManager.addProduct(product);
+
+  if (productToAdd) {
+    res.json({ productAdded: product });
+  } else {
+    res.status(404).json({ Error: "Producto no agregado" });
+  }
+});
+
+router.put("/:pid", convertToNumber, async (req, res) => {
+  const { pid } = req.params;
+  const dataToUpdate = req.body;
+
+  const productUpdate = await productManager.updateProduct(pid, dataToUpdate);
+
+  if (productUpdate) {
+    res.json({ productUpdated: productUpdate });
+  } else {
+    res.status(404).json({ Error: "Producto no Encontrado" });
+  }
+});
+
+router.delete("/:pid", convertToNumber, async (req, res) => {
+  const { pid } = req.params;
+
+  const productDeleted = await productManager.deleteProduct(pid);
+
+  if (productDeleted) {
+    res.json({ message: "Producto Eliminado" });
+  } else {
+    res.status(404).json({ Error: "Producto no Encontrado" });
   }
 });
 

@@ -1,35 +1,53 @@
-const express = require("express");
-const router = express.Router();
-const cartManager = require("../cartManager");
+const { Router } = require("express");
+const CartManager = require("../CartManager");
 
-router.get("/cart", async (req, res) => {
-  try {
-    const cartItems = await cartManager.getCartItems();
-    res.json({ cartItems });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+const router = Router();
+const cartManager = new CartManager("./src/carrito.json");
+
+router.post("/", async (req, res) => {
+  const cartToAdd = await cartManager.addCart();
+
+  if (cartToAdd) {
+    res.json({ cartAdded: cartToAdd });
+  } else {
+    res.status(404).json({ Error: "Producto no agregado" });
   }
 });
 
-router.post("/cart", async (req, res) => {
-  try {
-    const productId = parseInt(req.body.productId);
-    const quantity = parseInt(req.body.quantity);
+router.get("/", async (req, res) => {
+  const carts = await cartManager.getCart();
 
-    await cartManager.addToCart(productId, quantity);
-    res.json({ message: "Producto agregado al carrito correctamente" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  if (carts.length === 0) {
+    res.status(404).json({ Error: "Carrito Vacio" });
+  } else {
+    res.json({ carts: carts });
   }
 });
 
-router.delete("/cart/:pid", async (req, res) => {
-  try {
-    const productId = parseInt(req.params.pid);
-    await cartManager.removeFromCart(productId);
-    res.json({ message: "Producto eliminado del carrito correctamente" });
-  } catch (error) {
-    res.status(404).json({ error: "Producto no encontrado en el carrito" });
+router.get("/:cid", async (req, res) => {
+  const { cid } = req.params;
+
+  const cartId = await cartManager.getCartProductsById(Number(cid));
+
+  if (cartId) {
+    res.json({ carts: cartId.products });
+  } else {
+    res.status(404).json({ Error: "Carrito no Encontrado" });
+  }
+});
+
+router.post("/:cid/product/:pid", async (req, res) => {
+  const { cid, pid } = req.params;
+
+  const productToAddCart = await cartManager.addProductToCart(
+    Number(cid),
+    Number(pid)
+  );
+
+  if (productToAddCart) {
+    res.json({ productAdded: productToAddCart });
+  } else {
+    res.status(404).json({ Error: "Carrito o Producto no encontado" });
   }
 });
 
