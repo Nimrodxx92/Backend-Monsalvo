@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.send("¡Hola, esta es la página de inicio!");
 });
 
-app.use("/api", router);
+app.use("/", router);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -2,10 +2,10 @@ const fs = require("fs").promises;
 
 class CartManager {
   constructor(path) {
-    this.carts = [];
-    this.counterId = 1;
-    this.path = path;
-    this.loadCarts();
+    this.carts = []; // Para almacenar los carritos de compras
+    this.counterId = 1; // Para asignar identificadores únicos a los carritos
+    this.path = path; // Indica la ubicación del archivo donde se almacenarán los datos relacionados con los carritos
+    this.loadCarts(); // Carga los datos existentes de los carritos desde el archivo especificado en path
   }
 
   async loadCarts() {
@@ -69,11 +69,11 @@ class CartManager {
     if (cartExist) {
       const prodExist = cartExist.products.find((prod) => prod.id === pid);
       if (prodExist) {
-        prodExist.quantity += 1;
+        prodExist.quantity += quantity;
       } else {
         this.carts[cartIndex].products.push({
           id: pid,
-          quantity: 1,
+          quantity: quantity,
         });
       }
     } else {

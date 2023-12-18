@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const CartManager = require("../CartManager");
+const CartManager = require("../cartManager");
 
 const router = Router();
 const cartManager = new CartManager("./src/carrito.json");

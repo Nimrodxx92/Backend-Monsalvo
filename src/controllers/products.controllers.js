@@ -19,13 +19,11 @@ router.get("/", async (req, res) => {
 
 router.get("/:pid", convertToNumber, async (req, res) => {
   const { pid } = req.params;
-
-  const productId = await productManager.getProductsById(pid);
-
-  if (productId) {
-    res.json({ products: productId });
-  } else {
-    res.status(404).json({ Error: "Producto no Encontrado" });
+  try {
+    const productId = await productManager.getProductById(pid);
+    res.status(200).json({ product: productId });
+  } catch (error) {
+    res.status(404).json({ Error: error.message });
   }
 });
 
