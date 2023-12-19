@@ -2,28 +2,25 @@ const fs = require("fs").promises;
 
 class CartManager {
   constructor(path) {
-    this.carts = []; // Para almacenar los carritos de compras
-    this.counterId = 1; // Para asignar identificadores únicos a los carritos
-    this.path = path; // Indica la ubicación del archivo donde se almacenarán los datos relacionados con los carritos
-    this.loadCarts(); // Carga los datos existentes de los carritos desde el archivo especificado en path
+    this.carts = [];
+    this.counterId = 1;
+    this.path = path;
+    this.inMemoryData = [];
+    this.loadCarts();
   }
 
   async loadCarts() {
     try {
-      const cartToAdd = JSON.parse(await fs.readFile(this.path, "utf-8"));
-      this.carts = cartToAdd;
+      this.inMemoryData = JSON.parse(await fs.readFile(this.path, "utf-8"));
+      this.carts = this.inMemoryData;
       this.counterId = Math.max(...this.carts.map((cart) => cart.id), 0) + 1;
     } catch (error) {
-      console.log("Error al leer Archivo", error.message);
+      console.error("Error al leer Archivo", error.message);
     }
   }
 
   async addCart() {
-    const newCart = {
-      id: this.counterId++,
-      products: [],
-    };
-
+    const newCart = { id: this.counterId++, products: [] };
     this.carts.push(newCart);
 
     try {
@@ -35,47 +32,40 @@ class CartManager {
       console.log("Carrito agregado", newCart);
       return newCart;
     } catch (error) {
-      console.log("Error al escribir el archivo: ", error.message);
+      console.error("Error al escribir el archivo: ", error.message);
+      throw new Error("Error al escribir el archivo");
     }
   }
+
   async getCart() {
     try {
-      const dataRead = JSON.parse(await fs.readFile(this.path, "utf-8"));
-      this.carts = dataRead;
-      return dataRead;
+      this.carts = await this.inMemoryData;
+      return this.carts;
     } catch (error) {
-      console.log("Error al leer Archivo", error.message);
+      console.error("Error al leer Archivo", error.message);
       return [];
     }
   }
-  async getCartProductsById(id) {
+
+  async getCartByID(id) {
     try {
-      const dataRead = JSON.parse(await fs.readFile(this.path, "utf-8"));
-      const cartProductsFound = dataRead.find((cart) => cart.id === id);
-      if (cartProductsFound) {
-        return cartProductsFound;
-      } else {
-        console.error("Carrito no encontrado");
-        return null;
-      }
+      const cartProductsFound = this.carts.find((cart) => cart.id === id);
+      return cartProductsFound || null;
     } catch (error) {
-      console.log("Error al buscar el producto: ", error.message);
+      console.error("Error al buscar el producto: ", error.message);
     }
   }
-  async addProductToCart(cid, pid) {
-    const cartExist = this.carts.find((cart) => cart.id === cid);
+
+  async addProductToCart(cid, pid, quantity) {
     const cartIndex = this.carts.findIndex((cart) => cart.id === cid);
 
-    if (cartExist) {
-      const prodExist = cartExist.products.find((prod) => prod.id === pid);
-      if (prodExist) {
-        prodExist.quantity += quantity;
-      } else {
-        this.carts[cartIndex].products.push({
-          id: pid,
-          quantity: quantity,
-        });
-      }
+    if (cartIndex !== -1) {
+      const prodExistIndex = this.carts[cartIndex].products.findIndex(
+        (prod) => prod.id === pid
+      );
+      prodExistIndex !== -1
+        ? (this.carts[cartIndex].products[prodExistIndex].quantity += quantity)
+        : this.carts[cartIndex].products.push({ id: pid, quantity });
     } else {
       console.error("Carrito no encontrado");
       return null;
@@ -87,10 +77,11 @@ class CartManager {
         JSON.stringify(this.carts, null, 2),
         "utf-8"
       );
-      console.log("Producto agregado", cartExist);
-      return cartExist;
+      console.log("Producto agregado", this.carts[cartIndex]);
+      return this.carts[cartIndex];
     } catch (error) {
-      console.log("Error al escribir el archivo: ", error.message);
+      console.error("Error al escribir el archivo: ", error.message);
+      throw new Error("Error al escribir el archivo");
     }
   }
 }
