@@ -70,5 +70,14 @@
     "thumbnail": "pantalones-nike.jpg",
     "code": "pxq168",
     "stock": 7
+  },
+  {
+    "title": "Nuevo título con PUT",
+    "description": "Nueva Descripción",
+    "price": 50000,
+    "thumbnail": "nueva_url_de_la_imagen",
+    "code": "ABC123",
+    "stock": 15,
+    "id": 9
   }
 ]

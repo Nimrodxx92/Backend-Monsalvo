@@ -12,9 +12,7 @@ router.get("/", async (req, res) => {
     res.json({ products: limit ? products.slice(0, limit) : products });
   } catch (error) {
     console.error("Error al obtener productos:", error.message);
-    res
-      .status(500)
-      .json({ error: "Error interno del servidor al obtener productos" });
+    res.status(500).json({ error: "Error al obtener productos" });
   }
 });
 
@@ -32,7 +30,7 @@ router.get("/:pid", convertToNumber, async (req, res) => {
   } catch (error) {
     console.error("Error al obtener el producto:", error.message);
     res.status(500).json({
-      error: "Error interno del servidor al buscar el ID del producto ",
+      error: "Error buscar el ID del producto ",
     });
   }
 });
