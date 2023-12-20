@@ -8,8 +8,7 @@ router.get("/", async (req, res) => {
   try {
     const { limit } = req.query;
     const products = await productManager.getProducts();
-
-    res.json({ products: limit ? products.slice(0, limit) : products });
+    res.render("home.handlebars", { products });
   } catch (error) {
     console.error("Error al obtener productos:", error.message);
     res.status(500).json({ error: "Error al obtener productos" });
