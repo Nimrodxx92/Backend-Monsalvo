@@ -10,7 +10,6 @@ const httpServer = createServer(app);
 const io = new Server(httpServer);
 
 app.use(express.json());
-/* app.use(express.static(process.cwd) + "/src/public"); */
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", process.cwd() + "/src/views");
@@ -21,7 +20,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", router);
-app.use("/realtimeproducts", realTimeProductsRouter(io));
 
 httpServer.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
