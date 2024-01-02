@@ -19,7 +19,7 @@ function updateViewWithNewProduct(product) {
         <img src="${product.data.thumbnail}">
         <div>
         <h3 class="card__title">${product.data.title}</h3>
-        <p>Código: ${product.data.code}</p>
+        <p>Código: ${product.code}</p>
         <p>Precio: $${product.data.price}</p>
         <p>Cantidad: ${product.data.stock}</p>
         </div>

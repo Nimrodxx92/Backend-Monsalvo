@@ -79,5 +79,14 @@
     "code": "ABC123",
     "stock": 15,
     "id": 9
+  },
+  {
+    "title": "Producto de prueba",
+    "description": "A ver si funciona",
+    "price": "15000",
+    "thumbnail": "imagen-prueba.jps",
+    "code": "set784",
+    "stock": "6",
+    "id": 10
   }
 ]

@@ -36,7 +36,7 @@ router.get("/:pid", convertToNumber, async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { product } = req.body;
+    const product = req.body;
     const productAdded = await productManager.addProduct(product);
     res
       .status(productAdded ? 201 : 404)

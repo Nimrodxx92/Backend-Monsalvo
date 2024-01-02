@@ -3,7 +3,7 @@
   <form
     id="productForm"
     class="formulario"
-    onsubmit="submitForm(); return false;"
+    onsubmit="submitForm(event); return false;"
   >
     <div>
       <label for="title">
@@ -50,3 +50,6 @@
     <button type="submit">Enviar</button>
   </form>
 </section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/addProducts.js"></script>
