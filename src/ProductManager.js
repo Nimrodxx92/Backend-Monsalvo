@@ -94,9 +94,9 @@ class ProductManager {
     return false;
   }
 
-  async deleteProduct(code) {
+  async deleteProduct(id) {
     const products = await this.loadProducts();
-    const index = products.findIndex((product) => product.code === code);
+    const index = products.findIndex((product) => product.id === parseInt(id));
     if (index !== -1) {
       products.splice(index, 1);
       this.saveProducts(products);

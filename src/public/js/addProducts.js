@@ -1,3 +1,5 @@
+const socket = io();
+
 function submitForm(e) {
   e.preventDefault();
   const form = document.getElementById("productForm");
