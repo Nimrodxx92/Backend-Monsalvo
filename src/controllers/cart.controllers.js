@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const CartManager = require("../cartManager");
+const CartManager = require("../DAO/cartManager");
 const router = Router();
 const cartManager = new CartManager("./src/carrito.json");
+const { convertToNumber } = require("../middlewares/conver.numers.middlewares");
 
 // Manejador para crear un nuevo carrito
 router.post("/", async (req, res) => {
@@ -20,7 +21,7 @@ router.post("/", async (req, res) => {
 });
 
 // Manejador para obtener un producto por ID
-router.get("/:cid", async (req, res) => {
+router.get("/:cid", convertToNumber, async (req, res) => {
   try {
     const { cid } = req.params;
     const filterById = await cartManager.getCartByID(cid);

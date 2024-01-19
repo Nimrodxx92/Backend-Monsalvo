@@ -1,7 +1,11 @@
 const { Router } = require("express");
-const ProductManager = require("../DAO/ProductManager");
-const { convertToNumber } = require("../middlewares/conver.numers.middlewares");
-const productManager = new ProductManager("./src/productos.json");
+const ProductManagerDB = require("../../DAO/productManagerDB");
+const {
+  convertToNumber,
+} = require("../../middlewares/conver.numers.middlewares");
+
+const productManager = new ProductManagerDB();
+
 const router = Router();
 
 router.get("/", async (req, res) => {

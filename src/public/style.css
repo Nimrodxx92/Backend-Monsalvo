@@ -46,3 +46,15 @@ button {
 button:hover {
   background-color: #09520c;
 }
+
+#chats-box {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+#messages-box p {
+  margin: 5px 0;
+  font-size: 20px;
+}
