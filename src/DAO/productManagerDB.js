@@ -16,7 +16,7 @@ class ProductManagerDB {
 
   async getProducts(limit) {
     try {
-      const query = Product.find();
+      const query = Product.find().lean();
       if (limit) {
         query.limit(limit);
       }
