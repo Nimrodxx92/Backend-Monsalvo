@@ -1,6 +1,43 @@
 <h2>Lista de productos</h2>
+
+{{#if status}}
+  <div>
+    <p>{{status}}</p>
+    <p>"{{payload}}"</p>
+  </div>
+{{/if}}
+
+{{#if totalPages}}
+  <p>Total de páginas: {{totalPages}}</p>
+{{/if}}
+
 <ul>
-  {{#each products}}
-    <li>{{this.title}} - {{this.price}} - {{this.description}}</li>
+  {{#each Products}}
+    <li>
+      <h3>{{this.title}}</h3>
+      <p>Precio: {{this.price}}</p>
+      <p>{{this.description}}</p>
+      <p>Categoría: {{this.category}}</p>
+      <p>Stock: {{this.stock}}</p>
+
+      <form action="/CartDB{{cart.cid}}/add-to-cart" method="POST">
+        <input type="hidden" name="productId" value="{{this.cid}}" />
+        <button type="submit">Agregar al Carrito</button>
+      </form>
+
+    </li>
   {{/each}}
 </ul>
+
+<div>
+  {{#if prevLink}}
+    <a href="{{prevLink}}"><button type="button">Página anterior</button></a>
+  {{/if}}
+
+  {{#if nextLink}}
+    <a href="{{nextLink}}"><button type="button">Página siguiente</button></a>
+  {{/if}}
+</div>
+
+<p>Valor de _id: {{cart.cid}}</p>
+<a href="/CartDB/{{cart.cid}}">Ver Detalles del Carrito</a>

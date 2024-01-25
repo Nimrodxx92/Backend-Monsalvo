@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const cartCollection = "carts";
 
 const cartSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  _id: { type: mongoose.Schema.Types.ObjectId },
   products: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        ref: "products",
         required: true,
       },
       quantity: { type: Number, default: 1 },
@@ -18,6 +18,16 @@ const cartSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-const Cart = mongoose.model(cartCollection, cartSchema);
+cartSchema.pre("find", function () {
+  this.populate("products.product");
+});
+cartSchema.pre("findOne", function () {
+  this.populate("products.product");
+});
+cartSchema.pre("findByIdAndUpdate", function () {
+  this.populate("products.product");
+});
+
+const Carts = mongoose.model(cartCollection, cartSchema);
 
 module.exports = Carts;

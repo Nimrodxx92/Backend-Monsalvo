@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const CartManager = require("../DAO/cartManager");
 const router = Router();
-const cartManager = new CartManager("./src/carrito.json");
+/* const cartManager = new CartManager("./src/carrito.json"); */
 const { convertToNumber } = require("../middlewares/conver.numers.middlewares");
 
 // Manejador para crear un nuevo carrito

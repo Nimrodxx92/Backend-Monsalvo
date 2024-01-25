@@ -6,7 +6,8 @@
     "price": 12000,
     "thumbnail": "imagen.jpg",
     "code": "lpw874",
-    "stock": 10
+    "stock": 10,
+    "category": "Ropa"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "price": 55000,
     "thumbnail": "otra_imagen.jpg",
     "code": "pcv544",
-    "stock": 17
+    "stock": 17,
+    "category": "Ropa"
   },
   {
     "id": 3,
@@ -24,25 +26,28 @@
     "price": 85000,
     "thumbnail": "alguna-imagen.jpg",
     "code": "dft784",
-    "stock": 12
+    "stock": 12,
+    "category": "Calzado"
   },
   {
     "id": 4,
     "title": "Camiseta Boca 2024",
-    "description": "100% poliester",
+    "description": "100% poliéster",
     "price": 40000,
     "thumbnail": "boca-camiseta.jpg",
     "code": "qts714",
-    "stock": 12
+    "stock": 12,
+    "category": "Ropa"
   },
   {
     "id": 5,
     "title": "Camiseta River 2024",
-    "description": "100% poliester",
+    "description": "100% poliéster",
     "price": 39000,
     "thumbnail": "river-camiseta.jpg",
     "code": "lfp785",
-    "stock": 8
+    "stock": 8,
+    "category": "Ropa"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "price": 75000,
     "thumbnail": "zapas-adidas-negras.jpg",
     "code": "qcz511",
-    "stock": 7
+    "stock": 7,
+    "category": "Calzado"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "price": 28000,
     "thumbnail": "gauntesbox.jpg",
     "code": "kot041",
-    "stock": 5
+    "stock": 5,
+    "category": "Accesorios"
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "price": 57500,
     "thumbnail": "pantalones-nike.jpg",
     "code": "pxq168",
-    "stock": 7
+    "stock": 7,
+    "category": "Ropa"
   },
   {
     "title": "Nuevo título con PUT",
@@ -78,6 +86,7 @@
     "thumbnail": "nueva_url_de_la_imagen",
     "code": "ABC123",
     "stock": 15,
-    "id": 9
+    "id": 9,
+    "category": "Nuevo"
   }
 ]

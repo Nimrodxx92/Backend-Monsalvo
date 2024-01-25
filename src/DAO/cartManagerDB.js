@@ -1,15 +1,4 @@
-const mongoose = require("mongoose");
-
-const cartSchema = new mongoose.Schema({
-  products: [
-    {
-      id: { type: mongoose.Schema.Types.ObjectId, ref: "Products" },
-      quantity: { type: Number, default: 0 },
-    },
-  ],
-});
-
-const Cart = mongoose.model("Cart", cartSchema);
+/* const mongoose = require("mongoose");
 
 class CartManagerDB {
   constructor() {}
@@ -74,3 +63,4 @@ class CartManagerDB {
 }
 
 module.exports = CartManagerDB;
+ */

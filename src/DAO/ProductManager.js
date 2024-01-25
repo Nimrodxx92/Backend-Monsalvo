@@ -1,4 +1,4 @@
-const fs = require("fs").promises;
+/* const fs = require("fs").promises;
 
 class ProductManager {
   constructor() {
@@ -107,3 +107,4 @@ class ProductManager {
 }
 
 module.exports = ProductManager;
+ */
