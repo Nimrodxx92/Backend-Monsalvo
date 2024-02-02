@@ -6,6 +6,10 @@ const { Server } = require("socket.io");
 const { createServer } = require("http");
 const mongoConnect = require("./db/index.js");
 const { Messages } = require("./DAO/models/messages.model.js");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const { dbUser, dbPassword, dbHost } = require("./configs/db.configs.js");
 
 const app = express();
 const httpServer = createServer(app);
@@ -15,13 +19,25 @@ const io = new Server(httpServer);
 app.use(express.json()); // Transformar JSON a objeto JS
 app.use(express.urlencoded({ extended: true })); // Transformar formulario a objeto
 app.use(express.static(process.cwd() + "/src/public"));
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "coderSecret",
+    store: MongoStore.create({
+      mongoUrl: `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/sessions?retryWrites=true&w=majority`,
+      ttl: 1200,
+    }),
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", process.cwd() + "/src/views");
 app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
-  res.send("Bienvenido a mi proyecto");
+  res.render("login");
 });
 
 app.use("/", router);

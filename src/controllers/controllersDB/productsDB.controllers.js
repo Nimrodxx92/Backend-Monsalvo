@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   const { docs, totalPages, hasNextPage, hasPrevPage, nextPage, prevPage } =
     await modelProduct.paginate(filter, {
       page,
-      limit: 3,
+      limit: 10,
       sort: { price: sort === "desc" ? -1 : 1 },
       lean: true,
     });

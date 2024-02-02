@@ -83,7 +83,7 @@ router.get("/:cid", async (req, res) => {
         message: "Carrito no encontrado",
       });
     }
-    res.render("cartDetails.handlebars", {});
+    res.render("cartDetails.handlebars", { cart });
     console.log("Contenido del carrito:", cart);
   } catch (error) {
     console.error("Error al procesar la solicitud:", error.message);

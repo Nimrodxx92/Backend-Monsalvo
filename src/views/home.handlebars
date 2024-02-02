@@ -20,11 +20,9 @@
       <p>Categoría: {{this.category}}</p>
       <p>Stock: {{this.stock}}</p>
 
-      <form action="/CartDB{{cart.cid}}/add-to-cart" method="POST">
-        <input type="hidden" name="productId" value="{{this.cid}}" />
-        <button type="submit">Agregar al Carrito</button>
-      </form>
-
+      <button onclick="addToCart('{{this.cid}}')">
+        Agregar al Carrito
+      </button>
     </li>
   {{/each}}
 </ul>
@@ -39,5 +37,9 @@
   {{/if}}
 </div>
 
-<p>Valor de _id: {{cart.cid}}</p>
-<a href="/CartDB/{{cart.cid}}">Ver Detalles del Carrito</a>
+{{log "Valor de _id" cart._id}}
+
+<p>Valor de _id: {{cart._id}}</p>
+<a href="/CartDB/{{cart._id}}">Ver Detalles del Carrito</a>
+
+<script src="/js/cart.js"></script>

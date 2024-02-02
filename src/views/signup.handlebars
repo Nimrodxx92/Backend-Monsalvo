@@ -1,0 +1,35 @@
+<h2>Signup</h2>
+
+<form class="formSignup" onsubmit="submitForm(); return false;">
+
+  <label>
+    Nombre:
+    <input class="input" id="nombre" type="text" placeholder="" required="" />
+  </label>
+
+  <label>
+    Apellido:
+    <input class="input" id="apellido" type="text" placeholder="" required="" />
+  </label>
+
+  <label>
+    Correo:
+    <input class="input" id="email" type="email" placeholder="" required="" />
+  </label>
+
+  <label>
+    Contraseña:
+    <input
+      class="input"
+      id="password"
+      type="password"
+      placeholder=""
+      required=""
+    />
+  </label>
+
+  <button class="submit">Crear cuenta</button>
+  <p class="signin">¿Ya tienes una cuenta? <a href="/login">Ingresar</a> </p>
+</form>
+
+<script src="/js/signup.js"></script>
