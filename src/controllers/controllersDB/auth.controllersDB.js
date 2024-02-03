@@ -10,12 +10,17 @@ router.post("/", async (req, res) => {
 
     return !user || user.password !== password
       ? res.status(400).json({ message: "Bad Request" })
-      : (req.session.user = {
+      : ((req.session.user = {
           first_name: user.first_name,
           last_name: user.last_name,
           email: user.email,
           role: user.role,
-        }) && res.json({ status: "success", message: "Login Successful" });
+        }),
+        res.json({
+          status: "success",
+          message: "Login Successful",
+          redirectTo: user.role === "admin" ? "/profile" : "/productsDB",
+        }));
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });

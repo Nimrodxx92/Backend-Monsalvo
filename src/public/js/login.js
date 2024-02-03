@@ -27,7 +27,7 @@ form.addEventListener("submit", (e) => {
     .then((data) => {
       if (data.status === "success") {
         // Redireccionar a la página de perfil
-        window.location.href = "/profile";
+        window.location.href = data.redirectTo;
       } else {
         console.log(data);
       }

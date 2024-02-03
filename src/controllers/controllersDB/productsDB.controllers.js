@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const ProductsFile = require("../../products.json"); // Para pasar lo del JSON a base MONGO
 const modelProduct = require("../../DAO/models/products.model");
-
+const authentication = require("../../middlewares/authentication.middleware");
 const router = Router();
 
 // Ruta con paginación, ordenamiento y filtro
-router.get("/", async (req, res) => {
+router.get("/", authentication, async (req, res) => {
   const { page = 1, sort, category } = req.query;
   const filter = category ? { category } : {};
   const { docs, totalPages, hasNextPage, hasPrevPage, nextPage, prevPage } =
